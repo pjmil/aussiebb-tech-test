@@ -1,20 +1,19 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Queue;
 
 use App\Jobs\ProcessApplication;
 use App\Models\Application;
 use App\Enums\ApplicationStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Queue;
-use Illuminate\Support\Facades\Job;
 use Tests\TestCase;
 
 class ProcessApplicationTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * Test the application processing success result.
      *
