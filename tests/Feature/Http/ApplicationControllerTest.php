@@ -23,7 +23,7 @@ class ApplicationControllerTest extends TestCase
 
         $response = $this->get('/api/applications');
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -41,7 +41,7 @@ class ApplicationControllerTest extends TestCase
 
         $json = json_decode($response->getContent());
 
-        $response->assertStatus(200);
+        $response->assertSuccessful();
 
         $this->assertEquals(100, $json->pagination->total);
         $this->assertLessThanOrEqual(15, $json->pagination->count);
@@ -67,7 +67,7 @@ class ApplicationControllerTest extends TestCase
 
         $json = json_decode($response->getContent());
 
-        $response->assertStatus(200);
+        $response->assertSuccessful();
 
         $nbnCount = Application::whereHas('plan', function ($query) {
             $query->where('type', 'nbn');
