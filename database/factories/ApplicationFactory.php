@@ -29,6 +29,7 @@ class ApplicationFactory extends Factory
             'state' => $this->faker->randomELement(['NSW', 'VIC', 'QLD', 'TAS', 'SA', 'WA', 'NT', 'ACT']),
             'postcode' => $this->faker->numerify('####'),
             'order_id' => null,
+            'created_at' => $this->faker->dateTimeBetween('- 2 weeks', 'now'),
         ];
     }
 }
