@@ -2,15 +2,15 @@
 
 namespace Tests\Feature\Queue;
 
-use App\Jobs\ProcessApplication;
+use Tests\TestCase;
 use App\Models\Application;
 use App\Enums\ApplicationStatus;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Jobs\ProcessNbnApplication;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ProcessApplicationTest extends TestCase
+class ProcessNbnApplicationTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -27,7 +27,7 @@ class ProcessApplicationTest extends TestCase
 
         $application = Application::factory()->create();
 
-        ProcessApplication::dispatchSync($application->id);
+        ProcessNbnApplication::dispatch($application->id);
 
         Http::assertSent(function (Request $request) use ($application) {
             return $request->url() == env('NBN_B2B_ENDPOINT') &&
@@ -59,7 +59,7 @@ class ProcessApplicationTest extends TestCase
 
         $application = Application::factory()->create();
 
-        ProcessApplication::dispatchSync($application->id);
+        ProcessNbnApplication::dispatch($application->id);
 
         Http::assertSent(function (Request $request) use ($application) {
             return $request->url() == env('NBN_B2B_ENDPOINT') &&

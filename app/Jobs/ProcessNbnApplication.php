@@ -3,16 +3,15 @@
 namespace App\Jobs;
 
 use App\Models\Application;
-use App\Enums\ApplicationStatus;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
+use App\Enums\ApplicationStatus;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Http;
 
-class ProcessApplication implements ShouldQueue
+class ProcessNbnApplication implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -47,7 +46,7 @@ class ProcessApplication implements ShouldQueue
         ]);
 
         if ($response->status() === 200) {
-            $application->order_id = random_int(1,99999);
+            $application->order_id = random_int(1, 99999);
             $application->status = ApplicationStatus::Complete;
         } else {
             $application->status = ApplicationStatus::OrderFailed;

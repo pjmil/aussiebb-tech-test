@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Models\Application;
-use App\Jobs\ProcessApplication;
 use Illuminate\Console\Command;
+use App\Jobs\ProcessNbnApplication;
 
 class ProcessNbnApplications extends Command
 {
@@ -39,7 +39,7 @@ class ProcessNbnApplications extends Command
             ->pluck('id');
 
         foreach ($applications as $application_id) {
-            dispatch(new ProcessApplication($application_id));
+            dispatch(new ProcessNbnApplication($application_id));
         }
 
         return 0;
